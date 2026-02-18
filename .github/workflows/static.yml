@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Northern Hardline Performance — A Performance Division of Northern Laser Dynamics</title>
+  <meta name="description" content="Hardline parts. Zero compromise. Precision-built performance components." />
+
+  <style>
+    :root{
+      --bg:#07090d;
+      --panel:#0c0f16;
+      --panel2:#0a0d13;
+      --text:#f5f7ff;
+      --muted:#a9b2c7;
+      --muted2:#7f8aa5;
+      --line:#182033;
+      --blue:#00AEEF;
+      --blue2:#1b6cff;
+      --good:#2ee59d;
+      --shadow: 0 14px 40px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 22px;
+      --max: 1120px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(0,174,239,.18), transparent 55%),
+        radial-gradient(700px 420px at 85% 12%, rgba(27,108,255,.12), transparent 55%),
+        radial-gradient(900px 600px at 55% 85%, rgba(0,174,239,.08), transparent 60%),
+        linear-gradient(180deg, #05060a, var(--bg));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px;}
+    .skip{
+      position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:20px; top:18px; width:auto; height:auto; padding:10px 12px;
+      background:var(--panel); border:1px solid var(--line); border-radius:12px; z-index:9999;
+    }
+
+    /* Top bar */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,9,13,.55);
+      border-bottom: 1px solid rgba(24,32,51,.75);
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 220px;
+    }
+    .logo{
+      width:52px; height:40px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      display:grid; place-items:center;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .logo img{width:100%; height:100%; object-fit:cover; display:block}
+    .brandtext{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brandtext strong{
+      font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    }
+    .brandtext span{
+      font-size:11px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;
+      margin-top:4px;
+    }
+
+    nav{
+      display:flex; align-items:center; gap:18px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    nav a{
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      padding:10px 10px;
+      border-radius:12px;
+    }
+    nav a:hover{color:var(--text); background:rgba(255,255,255,.04)}
+    .cta{
+      display:flex; gap:10px; align-items:center; margin-left:6px;
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.04em;
+      display:inline-flex; align-items:center; gap:10px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.05); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(0,174,239,.95), rgba(0,174,239,.76));
+      border-color: rgba(0,174,239,.25);
+      color:#051018;
+      box-shadow: 0 10px 28px rgba(0,174,239,.20);
+    }
+    .btn.primary:hover{transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,174,239,.26)}
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(0,174,239,.35);
+      background: rgba(0,174,239,.08);
+      color: rgba(214,245,255,.95);
+      letter-spacing:.02em;
+    }
+
+    /* Hero */
+    main{padding:34px 0 80px}
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:26px;
+      align-items:stretch;
+      margin-top:18px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      border:1px solid rgba(24,32,51,.9);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(420px 200px at 20% 5%, rgba(0,174,239,.20), transparent 60%),
+        radial-gradient(360px 220px at 80% 10%, rgba(27,108,255,.14), transparent 60%);
+      pointer-events:none;
+      opacity:.8;
+    }
+    .hero-left{
+      padding:30px 28px 26px;
+      position:relative;
+    }
+    .kicker{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .kicker .muted{
+      color:var(--muted2);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size: clamp(34px, 4.3vw, 54px);
+      letter-spacing:.01em;
+      line-height:1.02;
+    }
+    .sub{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+      max-width: 62ch;
+    }
+    .hero-actions{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;
+    }
+    .specchips{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .chip{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .chip b{color:var(--text); font-weight:700}
+
+    .hero-right{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      background: linear-gradient(180deg, rgba(12,15,22,.85), rgba(10,13,19,.92));
+    }
+    .hero-right .panel{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:16px;
+      background: rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(229,241,255,.92);
+    }
+    .panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .divider{
+      height:1px; background:rgba(24,32,51,.9); margin:14px 0;
+    }
+    .list{
+      display:grid; gap:10px; margin-top:10px;
+    }
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .dot{
+      width:9px; height:9px; margin-top:5px;
+      border-radius:999px;
+      background: rgba(0,174,239,.9);
+      box-shadow: 0 0 0 4px rgba(0,174,239,.10);
+      flex:0 0 auto;
+    }
+    .mini{
+      margin-top:16px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      color:var(--muted2);
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .mini b{color:var(--text); letter-spacing:.02em}
+
+    /* Sections */
+    section{margin-top:26px}
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .tile{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(24,32,51,.9);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      position:relative;
+      overflow:hidden;
+    }
+    .tile::after{
+      content:"";
+      position:absolute; right:-20px; top:-20px; width:80px; height:80px;
+      background: radial-gradient(circle at 30% 30%, rgba(0,174,239,.22), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .tile h4{
+      margin:0 0 10px;
+      font-size:14px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+    .tile p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+      margin: 18px 0 12px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted2);
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+    }
+    .prod{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid rgba(24,32,51,.9);
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(255,255,255,.015));
+      position:relative;
+      overflow:hidden;
+      min-height: 160px;
+      display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .prod .tag{
+      font-family:var(--mono);
+      font-size:12px;
+      color: rgba(214,245,255,.92);
+      background: rgba(0,174,239,.08);
+      border:1px solid rgba(0,174,239,.22);
+      padding:4px 8px;
+      border-radius:999px;
+      width:max-content;
+    }
+    .prod h3{
+      margin:12px 0 8px;
+      font-size:16px;
+      letter-spacing:.02em;
+    }
+    .prod p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+    .prod a{
+      margin-top:14px;
+      display:inline-flex; align-items:center; gap:10px;
+      color: rgba(214,245,255,.92);
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .arrow{
+      width:10px; height:10px; border-right:2px solid rgba(214,245,255,.92); border-top:2px solid rgba(214,245,255,.92);
+      transform: rotate(45deg);
+      margin-top:-1px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .media{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(24,32,51,.9);
+      background:
+        radial-gradient(520px 220px at 40% 20%, rgba(0,174,239,.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.10));
+      position:relative;
+      overflow:hidden;
+      min-height: 280px;
+    }
+    .media .mock{
+      position:absolute; inset:18px;
+      border-radius: 18px;
+      border:1px dashed rgba(255,255,255,.16);
+      display:grid; place-items:center;
+      color: rgba(255,255,255,.35);
+      font-family: var(--mono);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      text-align:center;
+      padding:18px;
+    }
+
+    .copy{
+      padding:22px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(24,32,51,.9);
+      background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(255,255,255,.015));
+    }
+    .copy h3{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+    .copy p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .bullets{
+      display:grid; gap:10px; margin-top:10px;
+      padding:0; list-style:none;
+    }
+    .bullets li{
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .check{
+      width:16px; height:16px; border-radius:6px;
+      border:1px solid rgba(0,174,239,.35);
+      background: rgba(0,174,239,.08);
+      flex:0 0 auto;
+      margin-top:2px;
+      position:relative;
+    }
+    .check::after{
+      content:"";
+      position:absolute; left:4px; top:3px;
+      width:6px; height:3px;
+      border-left:2px solid rgba(214,245,255,.9);
+      border-bottom:2px solid rgba(214,245,255,.9);
+      transform: rotate(-45deg);
+    }
+
+    .specstrip{
+      margin-top:14px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(24,32,51,.9);
+      background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.16));
+      padding:14px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    .spec{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .spec .k{
+      color:var(--muted2);
+      font-size:11px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .spec .v{
+      font-family:var(--mono);
+      font-size:12px;
+      color: rgba(229,241,255,.92);
+      line-height:1.3;
+    }
+
+    .quote{
+      display:grid; gap:12px;
+      grid-template-columns: 1fr 1fr;
+    }
+    blockquote{
+      margin:0;
+      padding:16px 16px 14px;
+      border-radius: var(--radius);
+      border:1px solid rgba(24,32,51,.9);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    blockquote::before{
+      content:"";
+      position:absolute; left:-40px; top:-40px; width:140px; height:140px;
+      background: radial-gradient(circle at 50% 50%, rgba(0,174,239,.18), transparent 60%);
+      pointer-events:none;
+    }
+    cite{
+      display:block;
+      margin-top:10px;
+      color: rgba(229,241,255,.92);
+      font-style:normal;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+
+    .final-cta{
+      margin-top:18px;
+      padding:22px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(0,174,239,.28);
+      background:
+        radial-gradient(620px 220px at 20% 0%, rgba(0,174,239,.22), transparent 55%),
+        linear-gradient(180deg, rgba(0,174,239,.10), rgba(0,0,0,.14));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .final-cta h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .final-cta p{
+      margin:6px 0 0;
+      color: rgba(229,241,255,.88);
+      max-width: 70ch;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    footer{
+      margin-top:32px;
+      padding:22px 0 36px;
+      border-top:1px solid rgba(24,32,51,.9);
+      color:var(--muted2);
+      font-size:12px;
+      letter-spacing:.04em;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .foot a{color:var(--muted)}
+    .foot a:hover{color:var(--text)}
+    .foot .cols{
+      display:flex; gap:22px; flex-wrap:wrap;
+    }
+    .foot .col{
+      display:grid; gap:8px;
+    }
+    .tiny{
+      margin-top:10px;
+      color: rgba(127,138,165,.92);
+      max-width: 92ch;
+      line-height:1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr; }
+      .product-grid{grid-template-columns: repeat(2, 1fr);}
+      .grid3{grid-template-columns: 1fr;}
+      .split{grid-template-columns: 1fr;}
+      .specstrip{grid-template-columns: repeat(2, 1fr);}
+      .quote{grid-template-columns: 1fr;}
+      nav{display:none;} /* simple mock; replace with mobile menu later */
+      .brand{min-width:auto}
+    }
+    @media (max-width: 520px){
+      .btn{width:100%; justify-content:center}
+      .cta{width:100%}
+      .topbar{flex-wrap:wrap}
+      .specstrip{grid-template-columns: 1fr;}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-label="NHP logo">
+            <!-- Replace src with your exported logo file, e.g. nhp-logo.png -->
+            <img src="nhp-logo.png" alt="NHP logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-family:var(--mono);letter-spacing:.12em;color:rgba(229,241,255,.85);font-size:12px;text-transform:uppercase&quot;>NHP</span>';" />
+          </div>
+          <div class="brandtext">
+            <strong>Northern Hardline Performance</strong>
+            <span>A Performance Division of Northern Laser Dynamics</span>
+          </div>
+        </div>
+
+        <nav aria-label="Primary navigation">
+          <a href="#products">Products</a>
+          <a href="#materials">Materials</a>
+          <a href="#about">About</a>
+          <a href="#dealers">Dealers</a>
+          <a href="#support">Support</a>
+        </nav>
+
+        <div class="cta">
+          <a class="btn" href="#quote">Get a Quote</a>
+          <a class="btn primary" href="#products">Shop Parts <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card hero-left">
+        <div class="kicker">
+          <span class="pill">NHP / HARDLINE</span>
+          <span class="muted">Built for load • Built for impact • Built to stay true</span>
+        </div>
+
+        <h1>HARDLINE PARTS.<br/>ZERO COMPROMISE.</h1>
+        <p class="sub">
+          Precision-built performance components engineered for real terrain and real competition.
+          Hardline exists because performance is a manufacturing problem — materials, geometry, and process control.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#products">Shop Parts <span class="arrow" aria-hidden="true"></span></a>
+          <a class="btn" href="#quote">Request Custom Work</a>
+        </div>
+
+        <div class="specchips" aria-label="Key specs">
+          <div class="chip"><b>Laser-cut</b> chassis systems</div>
+          <div class="chip"><b>Titanium</b> link kits</div>
+          <div class="chip"><b>Repeatable</b> fitment</div>
+          <div class="chip"><b>Competition</b> focused</div>
+        </div>
+      </div>
+
+      <aside class="card hero-right">
+        <div class="panel">
+          <h3>Hardline Standard</h3>
+          <p>
+            No gimmicks. No decorative nonsense. If it doesn’t look right in one color and hold up under stress,
+            it doesn’t ship.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="list">
+            <div class="li"><span class="dot"></span><span><b>Process-first</b> manufacturing — consistent outputs every run.</span></div>
+            <div class="li"><span class="dot"></span><span><b>Material-driven</b> design — strength where it counts.</span></div>
+            <div class="li"><span class="dot"></span><span><b>Designed to be punished</b> — torsion, impact, recovery.</span></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:14px;">
+          <h3>Quick Specs</h3>
+          <div class="mini">
+            <span>Lead Time: <b>3–10 days</b></span>
+            <span>Finish: <b>Raw / Tumbled</b></span>
+            <span>Support: <b>Builder-first</b></span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- WHY -->
+    <section id="about">
+      <div class="section-head">
+        <h2>Why Hardline</h2>
+        <p>Industrial • Serious • Competition-ready</p>
+      </div>
+
+      <div class="grid3">
+        <div class="tile">
+          <h4>Tight Tolerances</h4>
+          <p>Built with repeatable processes for consistent fitment. Alignment holds. Slop stays out.</p>
+        </div>
+        <div class="tile">
+          <h4>Materials That Matter</h4>
+          <p>Titanium, stainless, carbon systems — chosen for strength, wear, and real-world abuse.</p>
+        </div>
+        <div class="tile">
+          <h4>Designed For Stress</h4>
+          <p>Geometry that survives impact + torsion. You don’t baby your rig — we don’t baby the design.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products">
+      <div class="section-head">
+        <h2>Featured Products</h2>
+        <p>Build your lineup here</p>
+      </div>
+
+      <div class="product-grid">
+        <div class="prod">
+          <div class="tag">NHP-001</div>
+          <div>
+            <h3>Titanium Link Kits</h3>
+            <p>Lightweight rigidity. Strength where it counts. Clean fitment across hard hits.</p>
+          </div>
+          <a href="#quote">View Kit Options <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+
+        <div class="prod">
+          <div class="tag">NHP-010</div>
+          <div>
+            <h3>Laser-Cut Chassis Systems</h3>
+            <p>High-clearance geometry with an aggressive stance. Built for competition layout.</p>
+          </div>
+          <a href="#quote">Request a Setup <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+
+        <div class="prod">
+          <div class="tag">NHP-020</div>
+          <div>
+            <h3>Hardware & Mounts</h3>
+            <p>Brackets, fasteners, and mounts designed to hold alignment under load and vibration.</p>
+          </div>
+          <a href="#quote">See Hardware <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+
+        <div class="prod">
+          <div class="tag">NHP-CUSTOM</div>
+          <div>
+            <h3>Custom Fabrication</h3>
+            <p>Bring your spec. We’ll solve the manufacturing problem. One-off or small batch.</p>
+          </div>
+          <a href="#quote">Start a Quote <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILT BY FABRICATORS -->
+    <section id="materials">
+      <div class="section-head">
+        <h2>Built By Fabricators</h2>
+        <p>Not a lifestyle brand</p>
+      </div>
+
+      <div class="split">
+        <div class="media">
+          <div class="mock">
+            Drop in a shop photo, CNC silhouette, or product hero shot here.<br/><br/>
+            Recommended: 1600×1000 JPG/WEBP
+          </div>
+        </div>
+
+        <div class="copy">
+          <h3>Performance is a manufacturing problem.</h3>
+          <p>
+            Hardline exists to deliver parts that feel like they belong on a machine plate.
+            Geometry + materials + process control — that’s where real gains come from.
+          </p>
+
+          <ul class="bullets">
+            <li><span class="check"></span>Repeatable fitment across builds</li>
+            <li><span class="check"></span>Clean edges and consistent cuts</li>
+            <li><span class="check"></span>Designed for impact + torsion</li>
+            <li><span class="check"></span>Support from builders who fabricate</li>
+          </ul>
+
+          <div class="hero-actions" style="margin-top:16px;">
+            <a class="btn primary" href="#quote">Get a Quote <span class="arrow" aria-hidden="true"></span></a>
+            <a class="btn" href="#support">Support</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="specstrip" aria-label="Spec strip">
+        <div class="spec">
+          <div class="k">Lead Time</div>
+          <div class="v">3–10 business days</div>
+        </div>
+        <div class="spec">
+          <div class="k">Materials</div>
+          <div class="v">Titanium / Stainless / Carbon</div>
+        </div>
+        <div class="spec">
+          <div class="k">Finishes</div>
+          <div class="v">Raw / Tumbled / Coated</div>
+        </div>
+        <div class="spec">
+          <div class="k">Use Case</div>
+          <div class="v">Performance + Competition</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <section id="dealers">
+      <div class="section-head">
+        <h2>Proof, Not Hype</h2>
+        <p>Swap these with real quotes later</p>
+      </div>
+
+      <div class="quote">
+        <blockquote>
+          “Fitment is perfect. Zero slop. Took real hits and stayed true.”
+          <cite>Team Driver / Customer</cite>
+        </blockquote>
+        <blockquote>
+          “Finally a mark that looks like it belongs on a machine plate.”
+          <cite>Builder / Shop</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="quote">
+      <div class="final-cta">
+        <div>
+          <h2>Ready to go hardline?</h2>
+          <p>
+            Shop the lineup or send your build specs for a custom quote.
+            Northern Hardline Performance is a performance division of Northern Laser Dynamics — fabrication first.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#products">Shop Parts <span class="arrow" aria-hidden="true"></span></a>
+          <a class="btn" href="mailto:quotes@example.com">Email for Quote</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT -->
+    <section id="support">
+      <div class="section-head">
+        <h2>Support</h2>
+        <p>Keep it clean and direct</p>
+      </div>
+
+      <div class="grid3">
+        <div class="tile">
+          <h4>Shipping</h4>
+          <p>Flat-rate options, tracked shipments, and clear lead times. No guessing games.</p>
+        </div>
+        <div class="tile">
+          <h4>Warranty</h4>
+          <p>Manufacturing defects covered. Always inspect parts before operation.</p>
+        </div>
+        <div class="tile">
+          <h4>Dealer Program</h4>
+          <p>Shops: request terms and minimums. We’ll keep SKUs organized and repeatable.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <div>
+          <div style="color:rgba(229,241,255,.92); font-weight:800; letter-spacing:.12em; text-transform:uppercase;">
+            Northern Hardline Performance
+          </div>
+          <div class="tiny">
+            A Performance Division of Northern Laser Dynamics. Designed for performance use. Always inspect parts before operation.
+          </div>
+        </div>
+
+        <div class="cols">
+          <div class="col">
+            <div style="color:rgba(229,241,255,.92); letter-spacing:.10em; text-transform:uppercase;">Links</div>
+            <a href="#products">Products</a>
+            <a href="#materials">Materials</a>
+            <a href="#quote">Get a Quote</a>
+          </div>
+          <div class="col">
+            <div style="color:rgba(229,241,255,.92); letter-spacing:.10em; text-transform:uppercase;">Legal</div>
+            <a href="#">Warranty</a>
+            <a href="#">Returns</a>
+            <a href="#">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px; color:rgba(127,138,165,.92);">
+        © <span id="year"></span> NHP. All rights reserved.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
