@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+# Open the estimator at the site root on its own Netlify site.
+[[redirects]]
+  from = "/"
+  to = "/estimator/"
+  status = 302

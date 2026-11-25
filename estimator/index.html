@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Polar Estimator</title>
+  <meta name="theme-color" content="#0f2a3d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <strong>Polar Estimator</strong>
+    <nav>
+      <a href="#new" data-tab="new">New</a>
+      <a href="#saved" data-tab="saved">Saved</a>
+      <a href="#prices" data-tab="prices">Prices</a>
+      <a href="#settings" data-tab="settings">Settings</a>
+    </nav>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+  <main id="view"></main>
+
+  <!-- Filled only when printing a quote; everything else is hidden in print. -->
+  <section id="print" aria-hidden="true"></section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
